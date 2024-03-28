@@ -1,0 +1,31 @@
+/* .date-picker-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.date-picker {
+  display: flex;
+} */
+
+.date-button {
+  padding: 8px 16px;
+  margin-right: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.date-button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.date-button:hover {
+  background-color: #007bff;
+}
+
+.arrow {
+  cursor: pointer;
+  font-size: 20px; 
+}

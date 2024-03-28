@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Footer: React.FC = () => {
-  return <h1 className="text-3xl font-bold underline text-center">Footer</h1>;
+  return (
+    <div className="text-center fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4">
+      This is the footer.
+    </div>
+  )
 };
 
 export default Footer;
