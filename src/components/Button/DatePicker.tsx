@@ -1,41 +1,75 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import './datePicker.css';
+import ChevronButton from './ChevronButton';
 
 const DatePicker: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
   const numDaysToShow = 14; // Number of days to show
+  const [nextButtonClicked, setNextButtonClicked] = useState(false);
+
+  useEffect(() => {
+    // console.log(selectedDate);
+  }, [selectedDate]);
 
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
   };
 
-  const handlePreviousClick = () => {
-    const newStartDate = new Date(startDate);
-    newStartDate.setDate(startDate.getDate() - numDaysToShow);
-    setStartDate(newStartDate);
+  const formatDateToString = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if necessary
+    const day = date.getDate().toString().padStart(2, '0'); // Add leading zero if necessary
+    return `${year}-${month}-${day}`;
   };
 
-  const handleNextClick = () => {
+  const isStartDateBeforeToday = (startDate: Date) => {
+    const today = new Date();
+    return formatDateToString(startDate) <= formatDateToString(today);
+  };
+
+  const handlePreviousClick = () => {
     const newStartDate = new Date(startDate);
-    newStartDate.setDate(startDate.getDate() + numDaysToShow);
+    newStartDate.setDate(newStartDate.getDate() - numDaysToShow); // Update based on the current startDate
     setStartDate(newStartDate);
+    setNextButtonClicked(false);
+  };
+
+  // const handleNextClick = () => {
+  //   if (!nextButtonClicked) {
+  //     const newStartDate = new Date(startDate);
+  //     newStartDate.setDate(14); // Set to the 14th day of the current month
+  //     setStartDate(newStartDate);
+  //     setNextButtonClicked(true);
+  //   }
+  // };
+
+  const handleNextClick = () => {
+    if (!nextButtonClicked) {
+      const newStartDate = new Date(startDate);
+      newStartDate.setDate(startDate.getDate() + numDaysToShow);
+      setStartDate(newStartDate);
+      setNextButtonClicked(true);
+    }
   };
 
   const renderDates = () => {
     const days = [];
-    const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + numDaysToShow - 1);
-    for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
+
+    for (let i = 0; i < numDaysToShow; i++) {
+      const date = new Date(startDate);
+      date.setDate(startDate.getDate() + i);
       const dayOfMonth = date.getDate();
-      const isActive = date.toDateString() === selectedDate.toDateString();
-      const isToday = date.toDateString() === new Date().toDateString();
+      const dayOfWeek = date.toLocaleString('default', { weekday: 'short' });
+
       days.push(
         <button
           key={dayOfMonth}
-          className={`date-button ${isActive ? 'bg-blue-500 text-white' : ''} ${isToday ? 'bg-blue-500 text-white' : ''}`}
-          onClick={() => handleDateChange(new Date(date))}
+          className={`date-button ${selectedDate.toDateString() === date.toDateString() ? 'bg-white text-black' : 'bg-transparent text-white'}`}
+          onClick={() => handleDateChange(date)}
+          style={{ minWidth: '4em', maxWidth: '4em', margin: '0.5rem', textAlign: 'center' }}
         >
-          {dayOfMonth}
+          {`${dayOfWeek} ${dayOfMonth}`}
         </button>
       );
     }
@@ -44,12 +78,23 @@ const DatePicker: React.FC = () => {
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const isLeftButtonDisabled = startDate <= today;
+  const isLeftButtonDisabled = isStartDateBeforeToday(startDate);
+  const isNextButtonDisabled = nextButtonClicked;
 
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-end">
-        <button className={ isLeftButtonDisabled ? 'rounded-full' : 'opacity-50 cursor-not-allowed rounded-full' } onClick={handlePreviousClick} disabled={!isLeftButtonDisabled}>&lt;</button>
+        {/* <button className={ isLeftButtonDisabled ? 'rounded-full' : 'opacity-50 cursor-not-allowed rounded-full' } onClick={handlePreviousClick} disabled={!isLeftButtonDisabled}>&lt;</button> */}
+        {/* <button
+          className={`flex items-center justify-center ring-1 ring-white focus:outline-none p-2 rounded-full bg-transparent ${isLeftButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+          onClick={handlePreviousClick}
+          disabled={isLeftButtonDisabled} // Disable if start date is before today
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button> */}
+        <ChevronButton className={isLeftButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''} onClick={handlePreviousClick} disabled={isLeftButtonDisabled} />
       </div>
       <div className="flex justify-center">
         <div className="date-picker flex">
@@ -57,7 +102,13 @@ const DatePicker: React.FC = () => {
         </div>
       </div>
       <div className="flex items-start">
-        <button className="arrow" onClick={handleNextClick}>&gt;</button>
+        <button
+          className={isNextButtonDisabled ? 'rounded-full opacity-50 cursor-not-allowed' : 'rounded-full'}
+          onClick={handleNextClick}
+          disabled={isNextButtonDisabled} // Disable if next button has been clicked
+        >
+          &gt;
+        </button>
       </div>
     </div>
   );
