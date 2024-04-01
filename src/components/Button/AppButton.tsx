@@ -1,4 +1,3 @@
-import './datePicker.css';
 interface AppButtonProps {
   label: string;
   onClick?: (e: any) => void;
