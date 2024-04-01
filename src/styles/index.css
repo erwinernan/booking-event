@@ -33,7 +33,7 @@ a:hover {
 
 body {
   margin: 0;
-  padding-top: 5em;
+  padding: 5em;
   /* display: grid; */
   place-items: center;
   min-width: 320px;
@@ -58,7 +58,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #fff;
 }
 button:focus,
 button:focus-visible {

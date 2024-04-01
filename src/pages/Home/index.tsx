@@ -3,14 +3,14 @@ import Dropdown from "../../components/Button/Dropdown";
 import DatePicker from "./components/DatePicker";
 import FullLayout from "../../components/Layout/FullLayout";
 import EventSection from "./components/Event";
-import { useState } from 'react';
+// import { useState } from 'react';
 
 export default function HomePage() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  // const toggleTheme = () => {
+  //   setIsDarkMode(!isDarkMode);
+  // };
 
   const dropdownLabels = ["Category", "Location", "Classes", "Level"];
 
@@ -29,13 +29,13 @@ export default function HomePage() {
       </div>
       <br/>
       <EventSection />
+      <br />
       {/* <AppButton className="text-green-500" label="From Home"></AppButton>
       <br/> */}
-      <div className={`bg-${isDarkMode ? 'gray-900' : 'white'} text-${isDarkMode ? 'white' : 'black'} p-4`}>
+      {/* <div className={`bg-${isDarkMode ? 'gray-900' : 'white'} text-${isDarkMode ? 'white' : 'black'} p-4`}>
         <button onClick={toggleTheme}>Toggle Dark Mode</button>
         <h1 className={`text-${isDarkMode ? 'yellow-300' : 'blue-500'} font-bold text-2xl`}>Hello World</h1>
-        {/* Other components */}
-      </div>
+      </div> */}
     </FullLayout>
   )
 }

@@ -71,13 +71,13 @@ const DatePicker: React.FC = () => {
 
   const renderDates = () => {
     const days = [];
-  
+
     for (let i = 0; i < numDaysToShow; i++) {
       const date = new Date(startDate);
       date.setDate(startDate.getDate() + i);
       const dayOfMonth = date.getDate().toString().padStart(2, '0'); // Ensure two digits for day
       const dayOfWeek = date.toLocaleString('default', { weekday: 'short' });
-  
+
       days.push(
         <button
           key={dayOfMonth}
@@ -107,6 +107,7 @@ const DatePicker: React.FC = () => {
           className={`flex items-center justify-center ring-1 ring-white focus:outline-none p-2 rounded-full bg-transparent text-white ${isLeftButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
           onClick={handlePreviousClick}
           disabled={isLeftButtonDisabled} // Disable if start date is before today
+          style={{ zIndex: '-1' }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
