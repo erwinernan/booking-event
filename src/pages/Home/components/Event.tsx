@@ -1,11 +1,13 @@
-import AppButton from "../../../components/Button/AppButton"
+import AppButton from "../../../components/Button/AppButton";
 // import Icon from '@mdi/react';
 // import { mdiSeatPassenger, mdiMapMarker } from '@mdi/js';
+import { useState } from 'react';
+import WhatsAppForm from "../../../components/Form/WhatsApp";
 
 interface EventProps {
   event: string;
   day: string;
-  className?: string
+  className?: string;
 }
 
 const events = [
@@ -48,6 +50,12 @@ const events = [
 ]
 
 export default function EventSection ({day, event}: EventProps) {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleBookNowClick = () => {
+    setShowLoginModal(true);
+  };
+
   return (
     <div className="py-5">
       <div className="flex items-center text-white gap-2">
@@ -92,12 +100,42 @@ export default function EventSection ({day, event}: EventProps) {
                 Rp 1.720.000
               </div>
               <div className="flex justify-end md:justify-center md:mt-2">
-                <AppButton className="hover:bg-transparent hover:text-white font-bold py-1 px-3 bg-white text-black text-sm" label="Book Now" />
+                <AppButton onClick={handleBookNowClick} className="hover:bg-transparent hover:text-white font-bold py-1 px-3 bg-white text-black text-sm" label="Book Now" />
               </div>
             </div>
           </div>
         ))}
       </div>
+      {/* Login Modal */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+          <div className="relative w-2/4 h-3/4 my-6 mx-auto">
+            {/* Modal content */}
+            <div className="bg-black rounded-2xl shadow-lg w-full h-full flex">
+              {/* Left column for logo */}
+              <div className="flex-1 flex items-center justify-center text-lg tracking-widest">
+                {/* <img src={LogoImage} alt="Logo" className="h-16" /> */}
+                BOOKING EVENT
+              </div>
+              {/* Right column for WhatsApp input */}
+              <div className="flex-1 rounded-r-xl flex items-center justify-center bg-white text-black relative">
+                {/* Close button */}
+                <button onClick={() => setShowLoginModal(false)} className="absolute bg-transparent top-0 right-0 m-4 hover:text-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                  X
+                </button>
+                <div className="flex flex-col">
+                  <div className="text-2xl font-bold">Login to continue</div>
+                  <div className="text-xs">Don’t have an account? <a className="font-bold text-base cursor-pointer">Sign up now</a></div>
+                  <br />
+                  <br />
+                  <WhatsAppForm />
+                  {/* <input type="text" placeholder="Enter WhatsApp number" className="border border-gray-300 px-4 py-2 rounded-lg" /> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

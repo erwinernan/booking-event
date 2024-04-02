@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
-import Container from './Container';
+// import Container from './Container';
 
 interface LayoutProps {
   children: ReactNode;
@@ -9,7 +9,7 @@ interface LayoutProps {
 
 const FullLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className='container mx-auto px-4 py-10 my-10'>
+    <div className='container mx-auto px-4 sm:px-10 md:px-15 py-10 my-10'>
       <Header />
       {/* <Container> */}
         <main>{children}</main>
