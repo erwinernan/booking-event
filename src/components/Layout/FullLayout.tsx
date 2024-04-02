@@ -9,11 +9,11 @@ interface LayoutProps {
 
 const FullLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div>
+    <div className='container mx-auto px-4 py-10 my-10'>
       <Header />
-      <Container>
+      {/* <Container> */}
         <main>{children}</main>
-      </Container>
+      {/* </Container> */}
       <Footer />
     </div>
   );

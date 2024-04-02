@@ -28,7 +28,8 @@ export default function HomePage() {
         ))}
       </div>
       <br/>
-      <EventSection />
+      <EventSection day="Today, Mon 1 Apr" event="3" />
+      <EventSection day="Tue 2 Apr" event="3" />
       <br />
       {/* <AppButton className="text-green-500" label="From Home"></AppButton>
       <br/> */}
