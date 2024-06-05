@@ -4,7 +4,7 @@ import AppButton from "../../../components/Button/AppButton";
 import { useState } from 'react';
 import WhatsAppForm from "../../../components/Form/WhatsApp";
 import Icon from "@mdi/react";
-import { mdiClockTimeEightOutline, mdiMapMarker, mdiSeatPassenger } from "@mdi/js";
+import { mdiClockTimeEightOutline, mdiClose, mdiMapMarker, mdiSeatPassenger } from "@mdi/js";
 import './modal.css';
 
 interface EventProps {
@@ -131,8 +131,13 @@ export default function EventSection ({day, event}: EventProps) {
                 BOOKING EVENT
               </div>
               <div className="flex-1 rounded-r-xl flex items-center justify-center bg-white text-black relative">
-                <button onClick={() => setShowLoginModal(false)} className="absolute bg-transparent top-0 right-0 m-4 hover:text-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-                  X
+                {/* <button onClick={() => setShowLoginModal(false)} className="absolute bg-red-500 top-0 right-0 m-4 hover:text-gray-400 text-gray-800 rounded-full">
+                  <Icon path={mdiClose} size={1} />
+                </button> */}
+                <button onClick={() => setShowLoginModal(false)} className="absolute bg-transparent top-0 right-0 m-4 hover:text-gray-400 text-gray-800 rounded-full p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mdiClose} />
+                  </svg>
                 </button>
                 <div className="flex flex-col">
                   <div className="text-2xl font-bold">Login to continue</div>
